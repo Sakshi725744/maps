@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        width: 50%;
+        height: 400px;
+        background-color: grey;
+      }
+    </style>
+  </head>
+  <body>
+ <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdQZOu4I7_n69Uwy6fD13yOz8_n9qme-I&libraries=places&callback=initMap">
+    </script>
+    <script type="text/javascript">
+
+function initMap() {
+  var to=document.getElementById("to");
+  var from=document.getElementById("from");
+   var autocomplete=new google.maps.places.Autocomplete(to);
+var auto=new google.maps.places.Autocomplete(from);
+google.maps.events.AddListener(autocomplete,'place_changed',function(){
+     var places=autocomplete.getplace();
+     var lat=places.geometry.location.lat();
+     var long=places.geometry.location.lng();
+     var t={lat:lat,lng:long};
+     var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: t});});
+    
+
+google.maps.events.AddListener(auto,'place_changed',function(){
+     var place=auto.getplace();
+     var lt=place.geometry.location.lat();
+     var log=place.geometry.location.lng();
+     var s={lat:lt,lng:log};
+     var marker = new google.maps.Marker({position: s, map: map});});
+
+  
+ 
+}google.maps.event.addDomListener(window,'load',initialize);
+    </script>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+TO:<input type="text" id="to"><br>
+FROM:<input type="text" id="from">
+<input type="button" id="bt" value="search" onclick="initMap()">
+
+   
+  </body>
+</html>
